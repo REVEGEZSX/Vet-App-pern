@@ -1,7 +1,7 @@
 const db = require('../db')
 exports.getUsers = async (req,res) => {
     try {
-        const {rows} = await db.query('SELECT * FROM "Usuarios"')
+        const {rows} = await db.query('SELECT * FROM usuarios')
         console.log({rows})
     } catch (error) {
         console.log(error.message)
