@@ -1,4 +1,5 @@
 const {check} = require('express-validator')
+const {compare} = require('bcryptjs')
 const db = require('../db')
 
 const nombre_usuario = check('nombre_usuario').not().isEmpty().withMessage('Debe escribir el nombre')
@@ -13,13 +14,26 @@ const correo_usuario = check('correo_usuario').isEmail().withMessage('Debe ingre
 
 //revisa si existe el correo_usuario
 const correo_usuario_existe = check('correo_usuario').custom(async (value) =>{
-    const {rows} = await db.query('SELECT * from usuarios WHERE correo_usuario = $1',[
-        value,
-    ])
+    const {rows} = await db.query('SELECT * from usuarios WHERE correo_usuario = $1',[value])
+
     if(rows.isLength){
         throw new Error('El correo ya esta registrado')
     }
 })
+//validacion del inicio de sesion
+const loginFieldsCheck = check('correo_usuario').custom(async(value, {req}) =>{
+    const usuario = await db.query('select * from usuarios where correo_usuario = $1', [value])
+    if (!usuario.rows.length) {
+        throw new Error('este correo no existe.');
+    }else {
+        const validPassword = await compare(req.body.contrasena_usuario, usuario.rows[0].contrasena_usuario)
+        if (!validPassword) {
+            throw new Error('la contraseña indicada es erronea');
+        }
+    }
+    req.usuario = usuario.rows[0]
+})
+
 
 module.exports = {
     registerValidation:[
@@ -29,5 +43,7 @@ module.exports = {
         nombre_usuario, 
         apellido_usuario, 
         telefono_usuario, 
-        id_roles_usuario]
+        id_roles_usuario
+    ],
+    loginValidation:[loginFieldsCheck]
 }
