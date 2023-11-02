@@ -16,7 +16,7 @@ exports.getUsers = async (req, res) => {
     }
 }
 
-//registro modo admin
+//registro
 exports.register = async (req,res) => {
     const {
         nombre_usuario, 
@@ -59,14 +59,12 @@ exports.register = async (req,res) => {
         })
     }
 }
-//login
+//entrada
 exports.login = async(req,res)=>{
     let usuario = req.usuario
     console.log(usuario)
     payload ={
         id_usuario: usuario.id_usuario,
-        /*nombre_usuario: usuario.nombre_usuario,
-        apellido_usuario: usuario.apellido_usuario,*/
         correo_usuario: usuario.correo_usuario
     }
     try {
@@ -87,9 +85,24 @@ exports.login = async(req,res)=>{
 exports.protected = async (req, res) => {
     try {
         return res.status(200).json({
-            info: 'protected info'
+            info: 'informacion protegida'
         })
     } catch (error) {
         console.log(error.message)
     }
 }
+//salida
+exports.logout = async (req, res) => {
+    try {
+      return res.status(200).clearCookie('token', { httpOnly: true }).json({
+        success: true,
+        message: 'sesion terminada con exito',
+      })
+    } catch (error) {
+      console.log(error.message)
+      return res.status(500).json({
+        error: error.message,
+      })
+    }
+  }
+  //borrar usuario

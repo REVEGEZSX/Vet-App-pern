@@ -6,7 +6,7 @@ const passport = require('passport')
 const cors = require('cors')
 
 //import passport middleware
-//require('./middlewares/passport-middleware')
+require('./middlewares/passport-middleware')
 
 //initialize middlewares
 app.use(express.json())
