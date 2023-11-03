@@ -1,2 +1,2 @@
 const passport = require('passport');
-exports.userAuth = passport.authenticate('', {session:false})
+exports.userAuth = passport.authenticate('jwt', {session:false})

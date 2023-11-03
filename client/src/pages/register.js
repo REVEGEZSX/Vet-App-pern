@@ -9,6 +9,8 @@ const Register = () => {
     apellido_usuario:'',
     correo_usuario: '',
     contrasena_usuario: '',
+    telefono_usuario:'',
+    id_roles_usuario:''
     
   })
   const [error, setError] = useState(false)
@@ -26,9 +28,17 @@ const Register = () => {
 
       setError('')
       setSuccess(data.message)
-      setValues({ email: '', password: '' })
+      setValues({
+        nombre_usuario:'', 
+        apellido_usuario:'', 
+        correo_usuario: '', 
+        contrasena_usuario: '',
+        telefono_usuario:'',
+        id_roles_usuario:''
+      })
     } catch (error) {
-      setError(error.response.data.errors[0].msg)
+      //console.log(error.response.data.errors[0].msg)
+      //setError(error.response.data.errors[0].msg)
       setSuccess('')
     }
   }
@@ -36,7 +46,7 @@ const Register = () => {
   return (
     <Layout>
       <form onSubmit={(e) => onSubmit(e)} className='form-register'>
-        <h1 id='register-title'>REGISTRO</h1>
+        <h1 className='form-title'>REGISTRO</h1>
 
         <div className='name-input'>
           <input
@@ -104,7 +114,7 @@ const Register = () => {
         </div>
 
         <button type='submit' className='btn-success'>
-          Registrarse
+          REGISTRARSE
         </button>
 
         <div className='user-role-input' hidden>
@@ -115,7 +125,7 @@ const Register = () => {
             className='form-control'
             id='id_roles_usuario'
             name='id_roles_usuario'
-            value={values.id_roles_usuario}
+            value={values.id_roles_usuario=3}
             placeholder='Cliente'
             defaultValue={3}
             required
