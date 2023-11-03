@@ -1,0 +1,26 @@
+.container{ 
+    display: flex;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #4E596A;
+    min-width: 100%;
+    min-height: 50px;
+    gap: 15px;
+    justify-items: center;
+    align-items: flex-end;
+    position: relative;
+    /*margin-bottom: 50px;*/
+}
+.nav-btn{
+    display: flex;
+    box-sizing: border-box;
+
+    gap: 15px;
+    max-height: 20px;
+    background-color: lightcoral;
+}
+.home-btn{
+    max-height: 20px;
+    background-color: lightgreen;
+}

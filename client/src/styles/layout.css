@@ -1,0 +1,19 @@
+section-layout{
+    position: relative;
+}
+
+.container-body{
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+
+    min-width: 350px;
+    max-height: 350px;
+
+
+}
