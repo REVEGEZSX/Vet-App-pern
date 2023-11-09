@@ -45,10 +45,6 @@ const Dashboard = () => {
       <Layout>
         <h1>Dashboard</h1>
         <h2>{protectedData}</h2>
-
-        <button onClick={() => logout()} className='btn-success'>
-          Cerrar Sesion
-        </button>
       </Layout>
     </div>
   )

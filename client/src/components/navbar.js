@@ -2,30 +2,41 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import '../styles/navbar.css'
+import Closesession from './closesession'
+
 const Navbar = () => {
     const { isAuth } = useSelector((state) => state.auth)
     return(
         <header>
-            <nav className='container'>
-                <div className='home-btn'>
-                    <NavLink to='/home' >
-                        <span>INICIO</span>
-                    </NavLink>                                         
-                </div>
-
+            <nav className='nav-bar-cont'>
                 {isAuth ?(
-                    <div className='nav-btn'>
-                        <NavLink to='/dashboard' >
-                            <span>dashboard</span>
-                        </NavLink>                                         
+                    <div className='nav-bar-btn'>
+                        <NavLink to='/home' className='bar-btn'>
+                            <div>INICIO</div>
+                        </NavLink>                        
+                        <NavLink to='/agendar_citas' className='bar-btn a-c'>
+                            <div>AGENDAR CITAS</div>
+                        </NavLink>
+                        <NavLink to='/historial_de_citas' className='bar-btn h-d-c'>
+                            <div>HISTORIAL DE CITAS</div>
+                        </NavLink>
+                        <NavLink to='/mascotas_registradas' className='bar-btn'>
+                            <div>MASCOTAS REGISTRADAS</div>
+                        </NavLink>                                                
+                        <NavLink className='bar-btn'>
+                            <Closesession/>
+                        </NavLink>
                     </div>
                 ):(
-                    <div className='nav-btn'>
-                        <NavLink to='/login' >
-                            <span>LOGIN</span>
+                    <div className='nav-bar-btn'>
+                        <NavLink to='/home' className='bar-btn'>
+                            <div>INICIO</div>
+                        </NavLink>                            
+                        <NavLink to='/login' className='bar-btn'>
+                            <div>LOGIN</div>
                         </NavLink>                                         
-                        <NavLink to='/register' >
-                            <span>SIGN</span>
+                        <NavLink to='/register' className='bar-btn'>
+                            <div>SIGN</div>
                         </NavLink>                                                             
                     </div>
                 )}                

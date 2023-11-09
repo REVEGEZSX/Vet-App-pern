@@ -1,0 +1,21 @@
+.form-vet-apo{
+    background-color: #4E596A;
+    height: 225px;
+    width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: min-content;
+    justify-items: center;
+    text-align: center;
+    row-gap: 20px;
+    border-radius: 15px;
+}
+.form-title-apo{
+    grid-column: 1 / 3;
+}
+.form-control-apo{
+    height: 50px;
+    width: 250px;
+    border-radius: 10px;
+    text-align: center;
+}

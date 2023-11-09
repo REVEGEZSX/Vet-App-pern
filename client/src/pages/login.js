@@ -33,7 +33,8 @@ const Login = () => {
 
   return (
     <Layout>
-      <form onSubmit={(e) => onSubmit(e)} className='form-register form-login'>
+      <section>
+      <form onSubmit={(e) => onSubmit(e)} className='form-login form-register'>
         <h1 className='form-title'>Login</h1>
 
         <div className='email-input'>
@@ -68,6 +69,7 @@ const Login = () => {
           INGRESAR
         </button>
       </form>
+      </section>
     </Layout>
   )
 }
