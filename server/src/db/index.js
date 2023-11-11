@@ -1,5 +1,5 @@
 const { Pool } = require('pg')
- 
+
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
@@ -9,5 +9,10 @@ const pool = new Pool({
 })
 
 module.exports = {
-    query: (text, params) => pool.query(text, params)
+  query: (text, params) => {
+      return pool.query(text, params)
+          .catch(err => {
+              console.error('Error executing query', err.stack)
+          });
+  }
 }

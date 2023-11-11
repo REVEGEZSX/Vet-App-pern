@@ -23,3 +23,14 @@ export async function fetchProtectedInfo() {
 export async function listaUsuarios(){
   return await axios.get('http://localhost:8000/api/get-users')
 }
+
+export async function listaVeterinarios(){
+  return await axios.get('http://localhost:8000/api/get-vett')
+    .then(response => {
+      console.log(response.data.usuarios)
+      return response.data.usuarios
+    })
+    .catch(error => {
+      console.error('Hubo un error al obtener la lista de veterinarios:', error);
+    });
+}

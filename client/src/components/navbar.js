@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import '../styles/navbar.css'
 import Closesession from './closesession'
-
+/*  <NavLink to='/historial_de_citas' className='bar-btn h-d-c'>
+        <div>HISTORIAL DE CITAS</div>
+    </NavLink> */
 const Navbar = () => {
     const { isAuth } = useSelector((state) => state.auth)
     return(
@@ -16,9 +18,6 @@ const Navbar = () => {
                         </NavLink>                        
                         <NavLink to='/agendar_citas' className='bar-btn a-c'>
                             <div>AGENDAR CITAS</div>
-                        </NavLink>
-                        <NavLink to='/historial_de_citas' className='bar-btn h-d-c'>
-                            <div>HISTORIAL DE CITAS</div>
                         </NavLink>
                         <NavLink to='/mascotas_registradas' className='bar-btn'>
                             <div>MASCOTAS REGISTRADAS</div>

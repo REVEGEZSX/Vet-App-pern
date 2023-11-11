@@ -10,6 +10,7 @@ const Login = () => {
     correo_usuario: '',
     contrasena_usuario: '',
   })
+  
   const [error, setError] = useState(false)
 
   const onChange = (e) => {
@@ -19,7 +20,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const onSubmit = async (e) => {
     e.preventDefault()
-
+    console.log(values)
     try {
       await onLogin(values)
       dispatch(authenticateUser())

@@ -24,11 +24,11 @@ const correo_usuario_existe = check('correo_usuario').custom(async (value) =>{
 const loginFieldsCheck = check('correo_usuario').custom(async(value, {req}) =>{
     const usuario = await db.query('select * from usuarios where correo_usuario = $1', [value])
     if (!usuario.rows.length) {
-        throw new Error('este correo no existe.');
+        throw new Error('DATOS ERRADOS.');
     }else {
         const validPassword = await compare(req.body.contrasena_usuario, usuario.rows[0].contrasena_usuario)
         if (!validPassword) {
-            throw new Error('la contraseña indicada es erronea');
+            throw new Error('DATOS ERRADOS');
         }
     }
     req.usuario = usuario.rows[0]

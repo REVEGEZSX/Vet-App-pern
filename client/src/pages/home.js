@@ -1,8 +1,9 @@
 import Layout from '../components/layout'
+import Landing from '../components/landing'
 const Home = () =>{
     return (
     <Layout>
-        <h1>HOME</h1>
+        <Landing/>
     </Layout>
     )}
 export default Home

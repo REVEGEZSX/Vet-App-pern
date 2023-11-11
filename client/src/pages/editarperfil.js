@@ -3,7 +3,7 @@ import { onRegistration } from '../api/auth'
 import Layout from '../components/layout'
 import '../styles/register.css'
 
-const Register = () => {
+const Editprofile = () => {
   const [values, setValues] = useState({
     nombre_usuario:'',
     apellido_usuario:'',
@@ -118,4 +118,4 @@ const Register = () => {
     </Layout>
   )
 }
-export default Register
+export default Editprofile
