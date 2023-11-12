@@ -2,13 +2,12 @@ import axios from 'axios'
 axios.defaults.withCredentials = true
 
 export async function onRegistration(registrationData) {
-  return await axios.post(
-    'http://localhost:8000/api/register',
-    registrationData
+  return await axios.post('http://localhost:8000/api/register',registrationData
   )
 }
 
 export async function onLogin(loginData) {
+  console.log('LOGINDATA: ', loginData)
   return await axios.post('http://localhost:8000/api/login', loginData)
 }
 
@@ -27,10 +26,20 @@ export async function listaUsuarios(){
 export async function listaVeterinarios(){
   return await axios.get('http://localhost:8000/api/get-vett')
     .then(response => {
-      console.log(response.data.usuarios)
       return response.data.usuarios
     })
     .catch(error => {
       console.error('Hubo un error al obtener la lista de veterinarios:', error);
+    });
+}
+
+export async function listaMascotasDeDueno() {
+  return await axios.get('http://localhost:8000/api/get-mascotas-de-dueno')
+    .then(response => {
+      console.log('response axios: ', response.data)
+      return response.data;
+    })
+    .catch(error => {
+      console.error('Hubo un error al obtener la lista de mascotas:', error);
     });
 }

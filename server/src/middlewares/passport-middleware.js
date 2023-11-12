@@ -19,7 +19,7 @@ passport.use(
   new JwtStrategy(opts, async({id_usuario}, done) => {
     try {
       const { rows } = await db.query(
-        'SELECT id_usuario, correo_usuario FROM usuarios WHERE id_usuario = $1',
+        'SELECT id_usuario, correo_usuario, id_roles_usuario FROM usuarios WHERE id_usuario = $1',
         [id_usuario]
       )
 
@@ -27,8 +27,11 @@ passport.use(
         throw new Error('401 not authorized')
       }
 
-      let usuario = { id_usuario: rows[0].id_usuario, correo_usuario: rows[0].correo_usuario }
-
+      let usuario = { 
+        id_usuario: rows[0].id_usuario, 
+        correo_usuario: rows[0].correo_usuario,
+        id_roles_usuario: rows[0].id_roles_usuario
+      }
       return await done(null, usuario)
     } catch (error) {
       console.log(error.message)

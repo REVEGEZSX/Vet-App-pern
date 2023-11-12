@@ -9,6 +9,7 @@ const Login = () => {
   const [values, setValues] = useState({
     correo_usuario: '',
     contrasena_usuario: '',
+    id_roles_usuario: '',
   })
   
   const [error, setError] = useState(false)
@@ -24,7 +25,7 @@ const Login = () => {
     try {
       await onLogin(values)
       dispatch(authenticateUser())
-
+      console.log('login.js:', values)
       localStorage.setItem('isAuth', 'true')
     } catch (error) {
       console.log(error.response.data.errors[0].msg)

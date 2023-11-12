@@ -1,9 +1,15 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Navbar from './navbar'
+import NavbarVet from './navbarvet'
 import '../styles/layout.css'
+
 const Layout = ({children})=>{
+    const userRole = useSelector(state => state.auth.userRole);
+
     return(
         <section className='section-layout'>
-            <Navbar />
+            {userRole === 3 ? <Navbar /> : <NavbarVet />}
             <article className='container-body'>
                 {children}
             </article>

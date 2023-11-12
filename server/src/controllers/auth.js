@@ -2,6 +2,22 @@ const db = require('../db')
 const {hash} = require('bcryptjs')
 const {sign} = require('jsonwebtoken')
 const {SECRET} = require('../constants')
+// obtener mascotas de la persona logeada
+exports.getMascotasDueno = async (req, res) => {
+    try {
+        const mascotas = await db.query(
+            `SELECT id_mascota, nombre_mascota 
+            FROM mascotas 
+            WHERE id_dueno_mascota = $1`, 
+            [req.user.id_usuario])
+        console.log(mascotas)
+        res.status(200).json(mascotas.rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Hubo un error al obtener las mascotas.' });
+    }
+  };
+
 
 //obtener lista de veterinarios
 exports.getVett = async (req, res) => {
@@ -37,11 +53,13 @@ exports.getUsers = async (req, res) => {
 //entrada
 exports.login = async(req,res)=>{
     let usuario = req.usuario
-    //console.log(usuario)
+    //console.log('al logear: ', usuario)
     payload = {
         id_usuario: usuario.id_usuario,
-        correo_usuario: usuario.correo_usuario
+        correo_usuario: usuario.correo_usuario,
+        id_roles_usuario: usuario.id_roles_usuario
     }
+    console.log('payload: ', payload)
     try {
         const token = await sign(payload, SECRET)
         return res.status(200).cookie('token', token, {httpOnly:true}).json({
@@ -125,4 +143,4 @@ exports.logout = async (req, res) => {
       })
     }
   }
-  //borrar usuario
+//borrar usuario
