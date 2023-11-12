@@ -3,10 +3,8 @@ axios.defaults.withCredentials = true
 
 export async function onLogin(loginData) {
   const response = await axios.post('http://localhost:8000/api/login', loginData);
-  console.log('axios onlogin: ', response.data)
   return response.data;
 }
-
 
 export async function onRegistration(registrationData) {
   return await axios.post('http://localhost:8000/api/register', registrationData

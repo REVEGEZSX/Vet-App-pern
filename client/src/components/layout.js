@@ -1,12 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux'; // Importa useSelector de react-redux
+import { useSelector } from 'react-redux';
 import Navbar from './navbar'
 import NavbarVet from './navbarvet'
 import '../styles/layout.css'
 
 const Layout = ({children})=>{ 
-    const userRole = useSelector(state => state.auth.userRole); // Obtiene userRole desde el estado de Redux
-    console.log('userRole: ', userRole)
+    const userRole = useSelector(state => state.auth.userRole);
     return(
         <section className='section-layout'>
              {userRole === 2 ? <NavbarVet /> : <Navbar />}

@@ -21,12 +21,9 @@ const Login = () => {
   
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(values);
     try {
         const data = await onLogin(values);
-        console.log('data.userRole:', data.userRole);
         dispatch(authenticateUser(data.userRole));
-        console.log('login.js:', values);
         localStorage.setItem('isAuth', 'true');
         localStorage.setItem('userRole', data.userRole);
     } catch (error) {
