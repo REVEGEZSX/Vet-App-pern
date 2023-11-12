@@ -2,6 +2,30 @@ const db = require('../db')
 const {hash} = require('bcryptjs')
 const {sign} = require('jsonwebtoken')
 const {SECRET} = require('../constants')
+
+//entrada
+exports.login = async(req,res)=>{
+    let usuario = req.usuario
+    payload = {
+        id_usuario: usuario.id_usuario,
+        correo_usuario: usuario.correo_usuario,
+        id_roles_usuario: usuario.id_roles_usuario
+    }
+    try {
+        const token = await sign(payload, SECRET)
+        return res.status(200).cookie('token', token, {httpOnly:true}).json({
+            success: true,
+            message: 'Ingresado con exito',
+            userRole: usuario.id_roles_usuario
+        })
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({
+         error: error.message
+        })        
+    }
+}
+
 // obtener mascotas de la persona logeada
 exports.getMascotasDueno = async (req, res) => {
     try {
@@ -49,31 +73,6 @@ exports.getUsers = async (req, res) => {
         console.log(error.message)
     }
 }
-
-//entrada
-exports.login = async(req,res)=>{
-    let usuario = req.usuario
-    //console.log('al logear: ', usuario)
-    payload = {
-        id_usuario: usuario.id_usuario,
-        correo_usuario: usuario.correo_usuario,
-        id_roles_usuario: usuario.id_roles_usuario
-    }
-    console.log('payload: ', payload)
-    try {
-        const token = await sign(payload, SECRET)
-        return res.status(200).cookie('token', token, {httpOnly:true}).json({
-            sucess: true,
-            message: 'Ingresado con exito'
-        })
-    } catch (error) {
-        console.log(error.message)
-        return res.status(500).json({
-         error: error.message
-        })        
-    }
-}
-
 //registro
 exports.register = async (req,res) => {
     const {

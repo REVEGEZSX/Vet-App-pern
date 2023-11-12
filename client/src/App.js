@@ -1,3 +1,4 @@
+/*<Route path='/Dashboard' element={<Dashboard />} />*/
 import {
   BrowserRouter,
   Navigate,
@@ -8,10 +9,9 @@ import {
 import Home from './pages/home'
 import Login from './pages/login'
 import Register from './pages/register'
-import Dashboard from './pages/dashboard'
-import Agendar_cita from './pages/agendar_cita'
-import Historial_de_citas from './pages/historial_de_citas'
-import Mascotas_registradas from './pages/mascotas_registradas'
+import AGENDAR_CITA from './pages/agendar_cita'
+import HISTORIAL_DE_CITAS from './pages/historial_de_citas'
+import MASCOTAS_REGISTRADAS from './pages/mascotas_registradas'
 import { useSelector } from 'react-redux'
 
 const PrivateRoutes = () => {
@@ -34,10 +34,9 @@ const App = () => {
         <Route path='/home' element={<Home />} />
 
         <Route element={<PrivateRoutes />}>
-          <Route path='/Dashboard' element={<Dashboard />} />
-          <Route path='/agendar_citas' element={< Agendar_cita/>} />
-          <Route path='/historial_de_citas' element={< Historial_de_citas/>} />
-          <Route path='/mascotas_registradas' element={< Mascotas_registradas/>} />
+          <Route path='/agendar_citas' element={< AGENDAR_CITA/>} />
+          <Route path='/historial_de_citas' element={< HISTORIAL_DE_CITAS/>} />
+          <Route path='/mascotas_registradas' element={< MASCOTAS_REGISTRADAS/>} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>

@@ -9,7 +9,6 @@ const Login = () => {
   const [values, setValues] = useState({
     correo_usuario: '',
     contrasena_usuario: '',
-    id_roles_usuario: '',
   })
   
   const [error, setError] = useState(false)
@@ -19,17 +18,20 @@ const Login = () => {
   }
 
   const dispatch = useDispatch()
+  
   const onSubmit = async (e) => {
-    e.preventDefault()
-    console.log(values)
+    e.preventDefault();
+    console.log(values);
     try {
-      await onLogin(values)
-      dispatch(authenticateUser())
-      console.log('login.js:', values)
-      localStorage.setItem('isAuth', 'true')
+        const data = await onLogin(values);
+        console.log('data.userRole:', data.userRole);
+        dispatch(authenticateUser());
+        console.log('login.js:', values);
+        localStorage.setItem('isAuth', 'true');
+        localStorage.setItem('userRole', data.userRole);
     } catch (error) {
-      console.log(error.response.data.errors[0].msg)
-      setError(error.response.data.errors[0].msg)
+        console.log(error.response.data.errors[0].msg);
+        setError(error.response.data.errors[0].msg);
     }
   }
 

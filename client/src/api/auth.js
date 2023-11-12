@@ -1,14 +1,16 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
-export async function onRegistration(registrationData) {
-  return await axios.post('http://localhost:8000/api/register',registrationData
-  )
+export async function onLogin(loginData) {
+  const response = await axios.post('http://localhost:8000/api/login', loginData);
+  console.log('axios onlogin: ', response.data)
+  return response.data;
 }
 
-export async function onLogin(loginData) {
-  console.log('LOGINDATA: ', loginData)
-  return await axios.post('http://localhost:8000/api/login', loginData)
+
+export async function onRegistration(registrationData) {
+  return await axios.post('http://localhost:8000/api/register', registrationData
+  )
 }
 
 export async function onLogout() {
@@ -36,7 +38,7 @@ export async function listaVeterinarios(){
 export async function listaMascotasDeDueno() {
   return await axios.get('http://localhost:8000/api/get-mascotas-de-dueno')
     .then(response => {
-      console.log('response axios: ', response.data)
+      console.log('response limadedu axios: ', response.data)
       return response.data;
     })
     .catch(error => {

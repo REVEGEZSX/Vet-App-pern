@@ -16,7 +16,10 @@ const Navbar = () => {
                         </NavLink>                        
                         <NavLink to='/agendar_citas' className='bar-btn a-c'>
                             <div>AGENDAR CITAS</div>
-                        </NavLink>                                           
+                        </NavLink>
+                        <NavLink to='/agendar_citas' className='bar-btn a-c'>
+                            <div>EDITAR PERFIL</div>
+                        </NavLink>                                                      
                         <NavLink className='bar-btn'>
                             <Closesession/>
                         </NavLink>

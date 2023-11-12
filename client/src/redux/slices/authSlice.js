@@ -9,19 +9,21 @@ const userAuthFromLocalStorage = () => {
 
   return false
 }
+
 const userRoleFromLocalStorage = () => {
-  const userRole = localStorage.getItem('userRole')
+  const userRole = localStorage.getItem('userRole');
 
   if (userRole) {
-    return JSON.parse(userRole)
+    return JSON.parse(userRole);
   }
 
-  return null
+  return null;
 }
+
 
 const initialState = {
   isAuth: userAuthFromLocalStorage(),
-  userRole: userRoleFromLocalStorage(),
+  userRole: null,
 }
 
 export const authSlice = createSlice({
@@ -29,16 +31,11 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     authenticateUser: (state, action) => {
-      state.isAuth = true
-      localStorage.setItem('isAuth', true)
-      state.userRole = action.payload
-      localStorage.setItem('userRole', JSON.stringify(action.payload))
+      state.isAuth = true;
+      state.userRole = userRoleFromLocalStorage(); 
     },
     unauthenticateUser: (state) => {
       state.isAuth = false
-      localStorage.removeItem('isAuth')
-      state.userRole = null
-      localStorage.removeItem('userRole')
     },
   },
 })
