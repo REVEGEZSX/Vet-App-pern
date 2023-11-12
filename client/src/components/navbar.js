@@ -1,5 +1,4 @@
-
-    import React from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import '../styles/navbar.css'
@@ -17,7 +16,7 @@ const Navbar = () => {
                         <NavLink to='/agendar_citas' className='bar-btn a-c'>
                             <div>AGENDAR CITAS</div>
                         </NavLink>
-                        <NavLink to='/agendar_citas' className='bar-btn a-c'>
+                        <NavLink to='/editar_perfil' className='bar-btn a-c'>
                             <div>EDITAR PERFIL</div>
                         </NavLink>                                                      
                         <NavLink className='bar-btn'>

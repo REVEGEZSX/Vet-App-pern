@@ -10,8 +10,9 @@ import Home from './pages/home'
 import Login from './pages/login'
 import Register from './pages/register'
 import AGENDAR_CITA from './pages/agendar_cita'
-import HISTORIAL_DE_CITAS from './pages/historial_de_citas'
+import LISTA_CITAS from './pages/lista_citas'
 import MASCOTAS_REGISTRADAS from './pages/mascotas_registradas'
+import EDITAR_PERFIL from './pages/editarperfil'
 import { useSelector } from 'react-redux'
 
 const PrivateRoutes = () => {
@@ -35,7 +36,8 @@ const App = () => {
 
         <Route element={<PrivateRoutes />}>
           <Route path='/agendar_citas' element={< AGENDAR_CITA/>} />
-          <Route path='/historial_de_citas' element={< HISTORIAL_DE_CITAS/>} />
+          <Route path='/lista_citas' element={< LISTA_CITAS/>} />
+          <Route path='/editar_perfil' element={< EDITAR_PERFIL/>} />
           <Route path='/mascotas_registradas' element={< MASCOTAS_REGISTRADAS/>} />
         </Route>
 

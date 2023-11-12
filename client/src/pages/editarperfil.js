@@ -1,121 +1,51 @@
-import { useState } from 'react'
-import { onRegistration } from '../api/auth'
-import Layout from '../components/layout'
-import '../styles/register.css'
+import Layout from '../components/layout';
+import { useState } from 'react';
+import { editarUsuario } from '../api/auth';
+import '../styles/register.css';
 
 const Editprofile = () => {
-  const [values, setValues] = useState({
-    nombre_usuario:'',
-    apellido_usuario:'',
+  const [usuarioData, setUsuarioData] = useState({
+    nombre_usuario: '',
+    apellido_usuario: '',
     correo_usuario: '',
-    contrasena_usuario: '',
-    telefono_usuario:'',
-    id_roles_usuario:''
-  })
-  const [error, setError] = useState(false)
-  const [success, setSuccess] = useState(false)
+    telefono_usuario: '',
+    contrasena_usuario: ''
+  });
 
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value })
-  }
+  const handleChange = (e) => {
+    setUsuarioData({
+      ...usuarioData,
+      [e.target.name]: e.target.value
+    });
+  };
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-
-    try {
-      const { data } = await onRegistration(values)
-
-      setError('')
-      setSuccess(data.message)
-      setValues({
-        nombre_usuario:'', 
-        apellido_usuario:'', 
-        correo_usuario: '', 
-        contrasena_usuario: '',
-        telefono_usuario:'',
-        id_roles_usuario:''
-      })
-    } catch (error) {
-      //console.log(error.response.data.errors[0].msg)
-      //setError(error.response.data.errors[0].msg)
-      setSuccess('')
-    }
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await editarUsuario(usuarioData);
+    console.log(response);
+    // Restablecer el estado de usuarioData a su estado inicial
+    setUsuarioData({
+      nombre_usuario: '',
+      apellido_usuario: '',
+      correo_usuario: '',
+      telefono_usuario: '',
+      contrasena_usuario: ''
+    });
+  };
 
   return (
     <Layout>
-        <form onSubmit={(e) => onSubmit(e)} className='form-register'>
-        <h1 className='form-title'>REGISTRO</h1>
-        <input
-          onChange={(e) => onChange(e)}
-          type='text'
-          className='form-control'
-          id='nombre_usuario'
-          name='nombre_usuario'
-          value={values.nombre_usuario}
-          placeholder='NOMBRE'
-          required
-        />
-        <input
-          onChange={(e) => onChange(e)}
-          type='text'
-          className='form-control'
-          id='apellido_usuario'
-          name='apellido_usuario'
-          value={values.apellido_usuario}
-          placeholder='APELLIDO'
-          required
-        />
-        <input
-          onChange={(e) => onChange(e)}
-          type='email'
-          className='form-control'
-          id='correo_usuario'
-          name='correo_usuario'
-          value={values.correo_usuario}
-          placeholder='CORREO'
-          required
-        />
-        <input
-          onChange={(e) => onChange(e)}
-          type='password'
-          value={values.contrasena_usuario}
-          className='form-control'
-          id='contrasena_usuario'
-          name='contrasena_usuario'
-          placeholder='CONTRASEÑA'
-          required
-        />
-        <input
-          onChange={(e) => onChange(e)}
-          type='number'
-          className='form-control'
-          id='telefono_usuario'
-          name='telefono_usuario'
-          value={values.telefono_usuario}
-          placeholder='TELEFONO'
-          required
-        />
-      <button type='submit' className='btn-success'>
-        REGISTRARSE
-      </button>
-        <input
-          disabled
-          onChange={(e) => onChange(e)}
-          type='number'
-          className='form-control'
-          id='id_roles_usuario'
-          name='id_roles_usuario'
-          value={values.id_roles_usuario=3}
-          placeholder='Cliente'
-          defaultValue={3}
-          required
-          hidden
-        />
-        <div style={{ color: 'red', margin: '10px 0' }}>{error}</div>
-        <div style={{ color: 'green', margin: '10px 0' }}>{success}</div>
-      </form>
+<form onSubmit={handleSubmit} className='form-register' autocomplete="off">
+  <h1 className='form-title'>EDITAR PERFIL</h1>
+  <input type="text" name="nombre_usuario" className='form-control' value={usuarioData.nombre_usuario} onChange={handleChange} placeholder="Nombre" required />
+  <input type="text" name="apellido_usuario" className='form-control' value={usuarioData.apellido_usuario} onChange={handleChange} placeholder="Apellido" required />
+  <input type="email" name="correo_usuario" className='form-control' value={usuarioData.correo_usuario} onChange={handleChange} placeholder="Correo electrónico" required />
+  <input type="tel" name="telefono_usuario" className='form-control' value={usuarioData.telefono_usuario} onChange={handleChange} placeholder="Teléfono" required />
+  <input type="password" name="contrasena_usuario" className='form-control' value={usuarioData.contrasena_usuario} onChange={handleChange} placeholder="Contraseña" required />
+  <button type="submit" className='btn-success'>Editar perfil</button>
+</form>
     </Layout>
-  )
-}
-export default Editprofile
+  );
+};
+
+export default Editprofile;

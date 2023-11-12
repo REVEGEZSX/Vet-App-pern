@@ -13,8 +13,8 @@ const Navbar = () => {
                         <NavLink to='/home' className='bar-btn'>
                             <div>INICIO</div>
                         </NavLink>                        
-                        <NavLink to='/historial_de_citas' className='bar-btn h-d-c'>
-                            <div>HISTORIAL DE CITAS</div>
+                        <NavLink to='/lista_citas' className='bar-btn h-d-c'>
+                            <div>LISTA DE CITAS</div>
                         </NavLink> 
                         <NavLink to='/mascotas_registradas' className='bar-btn'>
                             <div>MASCOTAS REGISTRADAS</div>

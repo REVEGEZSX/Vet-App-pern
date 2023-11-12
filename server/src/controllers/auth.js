@@ -3,6 +3,95 @@ const {hash} = require('bcryptjs')
 const {sign} = require('jsonwebtoken')
 const {SECRET} = require('../constants')
 
+//obtener citas del veterinario logeado:
+exports.obtenerCitas = async (req, res) => {
+    try {
+      const citas = await db.query(`
+        SELECT 
+          u.nombre_usuario AS nombre_dueno,
+          m.nombre_mascota,
+          c.fecha_cita
+        FROM citas c
+        JOIN mascotas m ON c.id_mascota_cita = m.id_mascota
+        JOIN usuarios u ON m.id_dueno_mascota = u.id_usuario
+        WHERE c.id_veterinario_cita = $1
+        ORDER BY c.fecha_cita ASC
+      `, [req.user.id_usuario]);
+      console.log(citas.rows)
+      return res.status(200).json({
+        success: 'true',
+        citas: citas.rows
+      });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({
+        error: error.message
+      });
+    }
+  };
+
+//crear cita
+exports.crearCita = async (req, res) => {
+    const { fecha_cita, id_veterinario_cita, id_mascota_cita } = req.body;
+    try {
+      await db.query(
+        `INSERT INTO citas (fecha_cita, id_veterinario_cita, id_mascota_cita, asistencia_cita) VALUES ($1, $2, $3, $4)`,
+        [fecha_cita, id_veterinario_cita, id_mascota_cita, false]
+      );
+      return res.status(201).json({
+        success: 'true',
+        message: 'Cita creada con éxito'
+      });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({
+        error: error.message
+      });
+    }
+};
+
+//editar usuario
+exports.editarUsuario = async (req, res) => {
+    const { nombre_usuario, apellido_usuario, correo_usuario, telefono_usuario, contrasena_usuario } = req.body;
+    try {
+        const usuario = await db.query(
+            `SELECT 
+                nombre_usuario, 
+                apellido_usuario, 
+                correo_usuario,
+                telefono_usuario
+                contrasena_usuario 
+                FROM usuarios WHERE id_usuario = $1`, [req.user.id_usuario]);
+        if (!usuario) {
+            return res.status(404).json({
+                success: 'false',
+                message: 'Usuario no encontrado'
+            });
+        }
+        const contrasena_usuario_cifrada = await hash(contrasena_usuario, 10);
+        await db.query(
+            `UPDATE usuarios SET 
+                nombre_usuario = $1, 
+                apellido_usuario = $2, 
+                correo_usuario = $3, 
+                telefono_usuario = $4,
+                contrasena_usuario = $5
+            WHERE id_usuario = $6`, 
+            [nombre_usuario, apellido_usuario, correo_usuario, telefono_usuario, contrasena_usuario_cifrada, req.user.id_usuario]
+        );
+        return res.status(200).json({
+            success: 'true',
+            message: 'Información de usuario actualizada con éxito'
+        });
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+};
+
+
 //entrada
 exports.login = async(req,res)=>{
     let usuario = req.usuario
