@@ -4,13 +4,12 @@ import { unauthenticateUser } from '../redux/slices/authSlice'
 
 const Closesession = () => {
   const dispatch = useDispatch()
-
   const logout = async () => {
     try {
       await onLogout()
-
       dispatch(unauthenticateUser())
       localStorage.removeItem('isAuth')
+      localStorage.removeItem('userRole')
     } catch (error) {
       console.log(error.response)
     }

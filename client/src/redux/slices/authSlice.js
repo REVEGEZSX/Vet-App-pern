@@ -23,7 +23,7 @@ const userRoleFromLocalStorage = () => {
 
 const initialState = {
   isAuth: userAuthFromLocalStorage(),
-  userRole: null,
+  userRole: userRoleFromLocalStorage(),
 }
 
 export const authSlice = createSlice({
@@ -32,7 +32,7 @@ export const authSlice = createSlice({
   reducers: {
     authenticateUser: (state, action) => {
       state.isAuth = true;
-      state.userRole = userRoleFromLocalStorage(); 
+      state.userRole = action.payload; 
     },
     unauthenticateUser: (state) => {
       state.isAuth = false

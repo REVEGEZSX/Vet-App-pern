@@ -9,7 +9,7 @@ const Layout = ({children})=>{
     console.log('userRole: ', userRole)
     return(
         <section className='section-layout'>
-             {userRole === 3 ? <NavbarVet /> : <Navbar />}
+             {userRole === 2 ? <NavbarVet /> : <Navbar />}
             <article className='container-body'>
                 {children}
             </article>
