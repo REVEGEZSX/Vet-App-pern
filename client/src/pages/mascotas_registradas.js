@@ -1,5 +1,4 @@
 import Layout from "../components/layout"
-import '../styles/mascotas_registradas.css'
 import Cards from '../components/cards'
 const Mascotas_registradas = () =>{
     return (

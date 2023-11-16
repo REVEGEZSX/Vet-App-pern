@@ -3,8 +3,14 @@ import { onLogin } from '../api/auth'
 import Layout from '../components/layout'
 import { useDispatch } from 'react-redux'
 import { authenticateUser } from '../redux/slices/authSlice'
+//css
 import '../styles/login.css'
-
+//*************************************
+//librerias bootstrap
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert';
+//********************************************
 const Login = () => {
   const [values, setValues] = useState({
     correo_usuario: '',
@@ -20,56 +26,58 @@ const Login = () => {
   const dispatch = useDispatch()
   
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-        const data = await onLogin(values);
-        dispatch(authenticateUser(data.userRole));
-        localStorage.setItem('isAuth', 'true');
-        localStorage.setItem('userRole', data.userRole);
+        const data = await onLogin(values)
+        dispatch(authenticateUser(data.userRole))
+        localStorage.setItem('isAuth', 'true')
+        localStorage.setItem('userRole', data.userRole)
     } catch (error) {
-        console.log(error.response.data.errors[0].msg);
-        setError(error.response.data.errors[0].msg);
+        console.log(error.response.data.errors[0].msg)
+        setError(error.response.data.errors[0].msg)
+        var alerta = document.getElementById('ALERT');
+        alerta.removeAttribute("hidden")
     }
   }
 
   return (
     <Layout>
-      <section>
-      <form onSubmit={(e) => onSubmit(e)} className='form-login form-register'>
-        <h1 className='form-title'>Login</h1>
+      <section className='section-login'>
+        <Form onSubmit={(e) => onSubmit(e)} className='mb-6 form-login'>
+          <h1 className='form-title'>Login</h1>
+          <Form.Group className="mb-3">
+          <Form.Control
+              size='sm'
+              onChange={(e) => onChange(e)}
+              type='email'
+              id='correo_usuario'
+              name='correo_usuario'
+              value={values.correo_usuario}
+              placeholder='CORREO'
+              required
+            />
+          </Form.Group>
 
-        <div className='email-input'>
-          <input
-            onChange={(e) => onChange(e)}
-            type='email'
-            className='form-control'
-            id='correo_usuario'
-            name='correo_usuario'
-            value={values.correo_usuario}
-            placeholder='CORREO'
-            required
-          />
-        </div>
+          <Form.Group className="mb-3">
+            <Form.Control
+              size='sm'
+              onChange={(e) => onChange(e)}
+              type='password'
+              value={values.contrasena_usuario}
+              id='contrasena_usuario'
+              name='contrasena_usuario'
+              placeholder='CONTRASEÑA'
+              required
+            />
+          </Form.Group>
 
-        <div className='password-input'>
-          <input
-            onChange={(e) => onChange(e)}
-            type='password'
-            value={values.contrasena_usuario}
-            className='form-control'
-            id='contrasena_usuario'
-            name='contrasena_usuario'
-            placeholder='CONTRASEÑA'
-            required
-          />
-        </div>
-
-        <div style={{ color: 'red', margin: '10px 0' }}>{error}</div>
-
-        <button type='submit' className='btn-success'>
-          INGRESAR
-        </button>
-      </form>
+          <Form.Group className="mb-3">
+              <Button size='sm' type='submit' variant='success'>
+                INGRESAR
+              </Button>
+          </Form.Group>
+          <Form.Group className="mb-3"><Alert variant = 'danger' id='ALERT' hidden>{error}</Alert></Form.Group>
+        </Form>
       </section>
     </Layout>
   )

@@ -14,6 +14,7 @@ import LISTA_CITAS from './pages/lista_citas'
 import MASCOTAS_REGISTRADAS from './pages/mascotas_registradas'
 import EDITAR_PERFIL from './pages/editarperfil'
 import { useSelector } from 'react-redux'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth)

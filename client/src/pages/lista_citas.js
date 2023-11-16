@@ -1,7 +1,6 @@
 import Layout from "../components/layout"
 import { useState, useEffect } from 'react'
-import { obtenerCitas } from '../api/auth'; // No olvides importar la función obtenerCitas
-import '../styles/lista_citas.css'
+import { obtenerCitas } from '../api/auth'
 
 const Lista_citas = () =>{
 

@@ -1,7 +1,14 @@
 import Layout from "../components/layout"
-import '../styles/apartar_cita.css'
 import { useState, useEffect } from 'react'
 import { listaVeterinarios, listaMascotasDeDueno, crearCita } from '../api/auth'
+//css
+import '../styles/register.css'
+import '../styles/agendar_cita.css'
+//*************************************
+//librerias bootstrap
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
+//********************************************
 
 const Agendar_citas = () =>{
 
@@ -59,45 +66,52 @@ const Agendar_citas = () =>{
 
   return (
     <Layout>
-      <form onSubmit={handleSubmit} className='form-vet-apo'> {/* Aquí agregamos la función handleSubmit */}
-        <h1 className="form-title-apo">APARTAR CITA</h1>
-        <input
-          type='date'
-          name='fecha_cita' // Agregamos el atributo name
-          className='form-control-apo'
-          value={citaData.fecha_cita} // El valor del input está vinculado al estado
-          onChange={handleChange} // Aquí agregamos la función handleChange
-          placeholder='fecha_cita'
-          required
-        />
-        <select 
-          name='id_veterinario_cita' // Agregamos el atributo name
-          className='form-control-apo' 
-          value={citaData.id_veterinario_cita} // El valor del select está vinculado al estado
-          onChange={handleChange} // Aquí agregamos la función handleChange
-          required
-        >
-          <option>--Seleccione un veterinario</option>
-          {veterinarios.map(
-            veterinario => (
-              <option key={veterinario.id_usuario} value={veterinario.id_usuario}>{veterinario.nombre_usuario}</option>))}
-        </select>
-        <select 
-          name='id_mascota_cita' // Agregamos el atributo name
-          className='form-control-apo' 
-          value={citaData.id_mascota_cita} // El valor del select está vinculado al estado
-          onChange={handleChange} // Aquí agregamos la función handleChange
-          required
-        >
-          <option>--Seleccione su mascota</option>
-          {mascotas.map(
-            mascota => (
-              <option key={mascota.id_mascota} value={mascota.id_mascota}>{mascota.nombre_mascota}</option>))}
-        </select>
-        <button type="submit" className="btn-success agn-btn">
-          AGENDAR
-        </button>
-      </form>
+      <section>
+        <Form onSubmit={handleSubmit} className='mb-6 form-register'>
+          <h1 className="form-title-apo">APARTAR CITA</h1>
+          <Form.Group className="mb-3">
+            <Form.Control
+              type='date'
+              name='fecha_cita'
+              className='form-control-apo'
+              value={citaData.fecha_cita}
+              onChange={handleChange}
+              placeholder='fecha_cita'
+              required
+            />            
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Select 
+              name='id_veterinario_cita'
+              className='form-control-apo' 
+              value={citaData.id_veterinario_cita}
+              onChange={handleChange}
+              required
+            >
+              <option>--Seleccione un veterinario</option>
+              {veterinarios.map(
+                veterinario => (
+                  <option key={veterinario.id_usuario} value={veterinario.id_usuario}>{veterinario.nombre_usuario}</option>))}
+            </Form.Select>
+          </Form.Group>
+          <Form.Group className="mb-3">
+          <Form.Select 
+            name='id_mascota_cita'
+            className='form-control-apo' 
+            value={citaData.id_mascota_cita}
+            onChange={handleChange}
+            required
+          >
+            <option>--Seleccione su mascota</option>
+            {mascotas.map(
+              mascota => (
+                <option key={mascota.id_mascota} value={mascota.id_mascota}>{mascota.nombre_mascota}</option>))}
+          </Form.Select>            
+          </Form.Group>
+          <Button size='sm' type='submit' variant='success'>REGISTRARSE</Button>
+        </Form>        
+      </section>
     </Layout>
   )
 }

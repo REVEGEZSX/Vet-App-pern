@@ -1,43 +1,38 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import '../styles/navbar.css'
 import Closesession from './closesession'
-const Navbar = () => {
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavbarBrand from 'react-bootstrap/esm/NavbarBrand';
+const Header = () => {
     const { isAuth } = useSelector((state) => state.auth)
     return(
-        <header>
-            <nav className='nav-bar-cont'>
-                {isAuth ?(
-                    <div className='nav-bar-btn'>
-                        <NavLink to='/home' className='bar-btn'>
-                            <div>INICIO</div>
-                        </NavLink>                        
-                        <NavLink to='/agendar_citas' className='bar-btn a-c'>
-                            <div>AGENDAR CITAS</div>
-                        </NavLink>
-                        <NavLink to='/editar_perfil' className='bar-btn a-c'>
-                            <div>EDITAR PERFIL</div>
-                        </NavLink>                                                      
-                        <NavLink className='bar-btn'>
-                            <Closesession/>
-                        </NavLink>
-                    </div>
-                ):(
-                    <div className='nav-bar-btn'>
-                        <NavLink to='/home' className='bar-btn'>
-                            <div>INICIO</div>
-                        </NavLink>                            
-                        <NavLink to='/login' className='bar-btn'>
-                            <div>LOGIN</div>
-                        </NavLink>                                         
-                        <NavLink to='/register' className='bar-btn'>
-                            <div>SIGN</div>
-                        </NavLink>                                                             
-                    </div>
-                )}                
-            </nav>            
-        </header>
+    <>
+      {isAuth ?(
+        <Navbar data-bs-theme="dark" bg='dark'>
+          <Container>
+            <Nav>
+              <NavbarBrand href='/home'>INICIO</NavbarBrand>
+              <Nav.Link href='/agendar_citas'>AGENDAR CITAS</Nav.Link>
+              <Nav.Link href='/editar_perfil'>EDITAR PERFIL</Nav.Link>
+              <Closesession/>
+            </Nav>
+          </Container>
+        </Navbar>
+          ):(
+        <Navbar data-bs-theme="dark" bg='dark'>
+          <Container>
+            <Nav>
+              <NavbarBrand href='/home'>INICIO</NavbarBrand>
+              <Nav.Link href='/login'>INGRESO</Nav.Link>
+              <Nav.Link href='/register'>REGISTRO</Nav.Link>
+            </Nav>
+          </Container>                                                 
+        </Navbar>
+      )}                
+    </>            
     )
 }
-export default Navbar
+export default Header

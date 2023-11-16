@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { onLogout } from '../api/auth'
 import { unauthenticateUser } from '../redux/slices/authSlice'
+import Nav from 'react-bootstrap/Nav';
 
 const Closesession = () => {
   const dispatch = useDispatch()
@@ -16,11 +17,7 @@ const Closesession = () => {
   }
 
   return (
-    <div>
-        <span onClick={() => logout()}>
-          CERRAR SESION
-        </span>
-    </div>
+    <Nav.Link onClick={() => logout()}>CERRAR SESION</Nav.Link>
   )
 }
 
