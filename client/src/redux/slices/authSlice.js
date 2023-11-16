@@ -32,7 +32,7 @@ export const authSlice = createSlice({
   reducers: {
     authenticateUser: (state, action) => {
       state.isAuth = true;
-      state.userRole = action.payload; 
+      state.userRole = action.payload;
     },
     unauthenticateUser: (state) => {
       state.isAuth = false

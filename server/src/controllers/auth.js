@@ -105,6 +105,10 @@ exports.login = async(req,res)=>{
         return res.status(200).cookie('token', token, {httpOnly:true}).json({
             success: true,
             message: 'Ingresado con exito',
+            nombre: usuario.nombre_usuario,
+            apellido: usuario.apellido_usuario,
+            correo: usuario.correo_usuario,
+            telefono: usuario.telefono_usuario,
             userRole: usuario.id_roles_usuario
         })
     } catch (error) {

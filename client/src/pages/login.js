@@ -12,6 +12,8 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert';
 //********************************************
 const Login = () => {
+  const dispatch = useDispatch()
+
   const [values, setValues] = useState({
     correo_usuario: '',
     contrasena_usuario: '',
@@ -22,21 +24,24 @@ const Login = () => {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
-
-  const dispatch = useDispatch()
   
   const onSubmit = async (e) => {
     e.preventDefault()
     try {
         const data = await onLogin(values)
         dispatch(authenticateUser(data.userRole))
+        console.log(data.userRole)
         localStorage.setItem('isAuth', 'true')
+        localStorage.setItem('nombreI', data.nombre)
+        localStorage.setItem('apellidoI', data.apellido)
+        localStorage.setItem('correoI', data.correo)
+        localStorage.setItem('telefonoI', data.telefono)
         localStorage.setItem('userRole', data.userRole)
     } catch (error) {
         console.log(error.response.data.errors[0].msg)
         setError(error.response.data.errors[0].msg)
         var alerta = document.getElementById('ALERT');
-        alerta.removeAttribute("hidden")
+        alerta.removeAttribute('hidden')
     }
   }
 
@@ -45,7 +50,7 @@ const Login = () => {
       <section className='section-login'>
         <Form onSubmit={(e) => onSubmit(e)} className='mb-6 form-login'>
           <h1 className='form-title'>Login</h1>
-          <Form.Group className="mb-3">
+          <Form.Group className='mb-3'>
           <Form.Control
               size='sm'
               onChange={(e) => onChange(e)}
@@ -58,7 +63,7 @@ const Login = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3">
+          <Form.Group className='mb-3'>
             <Form.Control
               size='sm'
               onChange={(e) => onChange(e)}
@@ -71,12 +76,12 @@ const Login = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3">
+          <Form.Group className='mb-3'>
               <Button size='sm' type='submit' variant='success'>
                 INGRESAR
               </Button>
           </Form.Group>
-          <Form.Group className="mb-3"><Alert variant = 'danger' id='ALERT' hidden>{error}</Alert></Form.Group>
+          <Form.Group className='mb-3'><Alert variant = 'danger' id='ALERT' hidden>{error}</Alert></Form.Group>
         </Form>
       </section>
     </Layout>

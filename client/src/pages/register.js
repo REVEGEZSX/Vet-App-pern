@@ -1,52 +1,55 @@
-import { useState } from 'react'
-import { onRegistration } from '../api/auth'
-import Layout from '../components/layout'
-//css
-import '../styles/register.css'
-//*************************************
-//librerias bootstrap
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
-import Alert from 'react-bootstrap/Alert';
-//********************************************
+import React, { useState } from 'react';
+import { onRegistration } from '../api/auth';
+import Layout from '../components/layout';
+import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
 const Register = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
-    nombre_usuario:'',
-    apellido_usuario:'',
+    nombre_usuario: '',
+    apellido_usuario: '',
     correo_usuario: '',
     contrasena_usuario: '',
-    telefono_usuario:'',
-    id_roles_usuario:''
-  })
-  const [error, setError] = useState(false)
-  const [success, setSuccess] = useState(false)
+    telefono_usuario: '',
+    id_roles_usuario: 3,
+  });
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value })
-  }
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const { data } = await onRegistration(values)
+      const { data } = await onRegistration(values);
 
-      setError('')
-      setSuccess(data.message)
+      setError('');
+      setSuccess(data.message);
       setValues({
-        nombre_usuario:'', 
-        apellido_usuario:'', 
-        correo_usuario: '', 
+        nombre_usuario: '',
+        apellido_usuario: '',
+        correo_usuario: '',
         contrasena_usuario: '',
-        telefono_usuario:'',
-        id_roles_usuario:''
-      })
+        telefono_usuario: '',
+        id_roles_usuario: 3,
+      });
+      setShowModal(true);
     } catch (error) {
-      console.log(error.response.data.errors[0].msg)
-      setError(error.response.data.errors[0].msg)
-      setSuccess('')
+      console.log(error.response.data.errors[0].msg);
+      setError(error.response.data.errors[0].msg);
+      setSuccess('');
     }
-  }
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    navigate('/login');
+  };
 
   return (
     <Layout>
@@ -136,14 +139,33 @@ const Register = () => {
               name='id_roles_usuario'
               value={values.id_roles_usuario=3}
               placeholder='Cliente'
-              defaultValue={3}
               required
               hidden
           />        
         </Form.Group>
-        <Form.Group className="mb-3"><Alert variant = 'danger' id='ALERT' hidden>{error}</Alert></Form.Group>
-        <Form.Group className="mb-3"><Alert variant = 'success' id='ALERT' hidden>{success}</Alert></Form.Group>                
+        <Form.Group className="mb-3">
+            <Alert variant='danger' id='ALERT' hidden>
+              {error}
+            </Alert>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Alert variant='success' id='ALERT' hidden>
+              {success}
+            </Alert>
+          </Form.Group>
         </Form>
+
+        <Modal show={showModal} onHide={handleModalClose} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Registro Exitoso</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>¡Tu cuenta ha sido registrada con éxito!</Modal.Body>
+          <Modal.Footer>
+            <Button variant='success' onClick={handleModalClose}>
+              Ir a Iniciar Sesión
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </section>
     </Layout>
   )

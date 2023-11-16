@@ -13,6 +13,7 @@ export async function editarUsuario(usuarioData) {
 
 export async function onLogin(loginData) {
   const response = await axios.post('http://localhost:8000/api/login', loginData);
+  console.log(response.data)
   return response.data;
 }
 
