@@ -13,6 +13,7 @@ import AGENDAR_CITA from './pages/agendar_cita'
 import LISTA_CITAS from './pages/lista_citas'
 import MASCOTAS_REGISTRADAS from './pages/mascotas_registradas'
 import EDITAR_PERFIL from './pages/editarperfil'
+import RegisterPet from './pages/agregar_mascota'
 import { useSelector } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route path='/lista_citas' element={< LISTA_CITAS/>} />
           <Route path='/editar_perfil' element={< EDITAR_PERFIL/>} />
           <Route path='/mascotas_registradas' element={< MASCOTAS_REGISTRADAS/>} />
+          <Route path='/registrar_mascota' element={< RegisterPet/>} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>

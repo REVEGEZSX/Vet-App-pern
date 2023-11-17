@@ -2,6 +2,67 @@ const db = require('../db')
 const {hash} = require('bcryptjs')
 const {sign} = require('jsonwebtoken')
 const {SECRET} = require('../constants')
+//registrar mascota
+exports.registerMascota = async (req, res) => {
+    const { nombre, sexo, tipo } = req.body;
+    try {
+      await db.query(
+        `INSERT INTO mascotas(
+          nombre_mascota, 
+          id_sexo_mascota, 
+          id_tipo_mascota,
+          id_dueno_mascota
+        ) VALUES ($1, $2, $3, $4)`,
+        [nombre, 
+          sexo, 
+          tipo,
+          req.user.id_usuario
+        ]
+      );
+      return res.status(201).json({
+        success: true,
+        message: 'Mascota registrada con éxito',
+      });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({
+        error: error.message,
+      });
+    }
+  };
+  
+
+// Función para obtener opciones de sexo de mascota
+exports.getSexoMascotaOptions = async (req, res) => {
+    try {
+      const result = await db.query('SELECT * FROM mascotas_sexo');
+      return res.status(200).json({
+        success: true,
+        options: result.rows,
+      });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({
+        error: error.message,
+      });
+    }
+  };
+  
+  // Función para obtener opciones de tipo de mascota
+  exports.getTipoMascotaOptions = async (req, res) => {
+    try {
+      const result = await db.query('SELECT * FROM tipos_mascota');
+      return res.status(200).json({
+        success: true,
+        options: result.rows,
+      });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({
+        error: error.message,
+      });
+    }
+  };
 
 //obtener citas del veterinario logeado:
 exports.obtenerCitas = async (req, res) => {
@@ -166,49 +227,61 @@ exports.getUsers = async (req, res) => {
         console.log(error.message)
     }
 }
-//registro
-exports.register = async (req,res) => {
-    const {
-        nombre_usuario, 
-        apellido_usuario, 
-        correo_usuario, 
-        contrasena_usuario, 
-        telefono_usuario, 
-        id_roles_usuario} = req.body
-    try {
-        const Hashedcontrasena_usuario = await hash(contrasena_usuario, 10)
-        await db.query(
-        `insert into usuarios(
-            nombre_usuario, 
-            apellido_usuario, 
-            correo_usuario, 
-            contrasena_usuario,
-            telefono_usuario,
-            id_roles_usuario)
-                values(
-                    $1,
-                    $2,
-                    $3,
-                    $4,
-                    $5,
-                    $6
-        )`,[nombre_usuario, 
-            apellido_usuario, 
-            correo_usuario, 
-            Hashedcontrasena_usuario, 
-            telefono_usuario, 
-            id_roles_usuario])
-        return res.status(201).json({
-            sucess: 'true',
-            message: 'Se Registro con exito'
-        })
-    } catch (error) {
-        console.log(error.message)
-        return res.status(500).json({
-            error: error.message
-        })
-    }
-}
+
+//registro cliente
+exports.register = async (req, res) => {
+  const {
+      nombre_usuario,
+      apellido_usuario,
+      correo_usuario,
+      contrasena_usuario,
+      telefono_usuario,
+      id_roles_usuario
+  } = req.body;
+  try {
+      const hashedContrasenaUsuario = await hash(contrasena_usuario, 10);
+
+      // Insertar el nuevo usuario
+      const resultUsuario = await db.query(
+          `INSERT INTO usuarios(
+              nombre_usuario,
+              apellido_usuario,
+              correo_usuario,
+              contrasena_usuario,
+              telefono_usuario,
+              id_roles_usuario)
+          VALUES($1, $2, $3, $4, $5, $6)
+          RETURNING id_usuario`, // Retorna el id del nuevo usuario
+          [
+              nombre_usuario,
+              apellido_usuario,
+              correo_usuario,
+              hashedContrasenaUsuario,
+              telefono_usuario,
+              id_roles_usuario
+          ]
+      );
+
+      const idNuevoUsuario = resultUsuario.rows[0].id_usuario;
+      console.log('back: ', idNuevoUsuario)
+      await db.query(
+          `INSERT INTO duenos(
+              id_dueno)
+          VALUES($1)`,
+          [idNuevoUsuario]
+      );
+
+      return res.status(201).json({
+          success: true,
+          message: 'Se registró con éxito'
+      });
+  } catch (error) {
+      console.error(error.message);
+      return res.status(500).json({
+          error: error.message
+      });
+  }
+};
 
 //Denegar acceso
 exports.protected = async (req, res) => {

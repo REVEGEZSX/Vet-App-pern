@@ -102,7 +102,8 @@ const Editprofile = () => {
           </Form.Group>
           <Button size='sm' type='submit' variant='success'>
             GUARDAR CAMBIOS
-          </Button>   
+          </Button>
+             
             <Modal show={showModal} onHide={handleClose} centered>
             <Modal.Header closeButton>
               <Modal.Title>¡Cambios guardados!</Modal.Title>

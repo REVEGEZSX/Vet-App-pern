@@ -1,6 +1,23 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
+export async function obtenerOpcionesSexoMascota() {
+  const response = await axios.get('http://localhost:8000/api/get-sexo-options');
+  console.log('response.data axios obtener opciones sexo mascota: ', response.data);
+  return response.data;
+}
+
+export async function obtenerOpcionesTipoMascota() {
+  const response = await axios.get('http://localhost:8000/api/get-tipo-options');
+  console.log('response.data axios obtener opciones tipo mascota: ', response.data);
+  return response.data;
+}
+
+export async function registrarMascota(mascotaData) {
+  console.log('mascotaData ', mascotaData);
+  return await axios.post('http://localhost:8000/api/register-mascota', mascotaData);
+}
+
 export async function obtenerCitas() {
   const response = await axios.get('http://localhost:8000/api/lista_citas');
   console.log('response.data axios obtener citas: ', response.data.citas)
