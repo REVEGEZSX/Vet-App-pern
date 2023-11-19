@@ -67,7 +67,7 @@ const Agendar_citas = () =>{
   return (
     <Layout>
       <section className='section-cita-apartar'>
-        <Form onSubmit={handleSubmit} className='mb-6 form-register'>
+        <Form onSubmit={handleSubmit} className='mb-6 form-register apartar-cita'>
           <h1 className="form-title-apo">APARTAR CITA</h1>
           <Form.Group className="mb-3">
             <Form.Control

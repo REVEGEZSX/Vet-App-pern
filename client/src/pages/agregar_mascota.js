@@ -8,7 +8,7 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import '../styles/agregarMascota.css'
 const RegisterPet = () => {
   const [showModal, setShowModal] = useState(false);
   const [petData, setPetData] = useState({
@@ -77,9 +77,9 @@ const RegisterPet = () => {
   return (
     <Layout>
       <section className='section-register'>
-        <Form onSubmit={onSubmit} className='mb-6 form-register'>
-          <h1 className='form-title'>REGISTRO DE MASCOTA</h1>
-          <Form.Group className="mb-3">
+        <Form onSubmit={onSubmit} className='mb-6 form-register pet-regis'>
+          <h1 className='form-title tittle-regispet'>REGISTRO DE MASCOTA</h1>
+          <Form.Group className="mb-3 name-regispet">
             <Form.Control
               type="text"
               name="nombre"
@@ -128,7 +128,7 @@ const RegisterPet = () => {
             </Form.Control>
           </Form.Group>
 
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3 img-regispet">
             <Form.Label>Foto de la Mascota</Form.Label>
             <Form.Control
               type="file"
@@ -138,7 +138,7 @@ const RegisterPet = () => {
             />
           </Form.Group>
 
-          <Button size='sm' type='submit' variant='success'>
+          <Button size='sm' type='submit' variant='success' className='btn-regispet'>
             REGISTRAR MASCOTA
           </Button>
           <Modal show={showModal} onHide={handleClose} centered>

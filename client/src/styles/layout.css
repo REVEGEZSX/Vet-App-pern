@@ -2,3 +2,17 @@
     height: 55px;
     width: 55px;
 }
+
+.nav-cont{
+    justify-items: center;
+    text-align: center;
+    justify-items: center;
+}
+
+.form-title{
+    text-align: center;
+}
+
+.section-register{
+    padding-top: 50px;
+}

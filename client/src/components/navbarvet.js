@@ -20,7 +20,7 @@ const Header = () => {
             <Nav>
               <NavbarBrand href='/home'>INICIO</NavbarBrand>
               <Nav.Link href='/lista_citas'>CITAS</Nav.Link>
-              <NavDropdown title={nombreDeUsuario} id="basic-nav-dropdown">
+              <NavDropdown title={'VETERINARIO '+nombreDeUsuario.toUpperCase()} id="basic-nav-dropdown">
                 <NavDropdown.Item href="/profile">Mi Perfil</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item>
